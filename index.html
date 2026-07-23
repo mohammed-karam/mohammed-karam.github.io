@@ -3,197 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed Karam | Software Engineer [cite: 11, 17]</title>
+    <title>Mohamed Karam | Mobile Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --bg-color: #f9f9f9;
-            --text-color: #333;
+            --primary: #0f172a; /* Slate 900 */
+            --secondary: #4f46e5; /* Indigo 600 */
+            --secondary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #334155;
+            --text-light: #64748b;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            scroll-behavior: smooth;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            margin-left: 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--secondary); }
+
+        /* Hero Section */
         header {
             background-color: var(--primary);
             color: white;
+            padding: 10rem 2rem 6rem;
             text-align: center;
-            padding: 3rem 1rem;
         }
+
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--secondary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        header h1 { margin: 0; font-size: 2.5rem; }
-        header p { font-size: 1.2rem; color: #bdc3c7; }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
         .social-links a {
+            background: rgba(255,255,255,0.1);
             color: white;
-            margin: 0 10px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            transition: all 0.3s;
         }
-        .social-links a:hover { color: var(--secondary); }
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
         }
+
+        /* General Section Styling */
         section {
-            background: white;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
+
         h2 {
+            font-size: 2rem;
             color: var(--primary);
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.5rem;
-            display: inline-block;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
         }
+
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: #e2e8f0;
+            margin-left: 1rem;
+        }
+
+        /* Timeline / Experience */
+        .card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .card h3 { color: var(--primary); }
+        .date { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; display: block; }
+        ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        /* Projects Grid */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
+
         .project-card {
-            border: 1px solid #eee;
-            border-radius: 8px;
+            background: var(--surface);
+            border-radius: 12px;
             overflow: hidden;
-            background: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+
         .project-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            background-color: #ddd; /* Placeholder background */
+            background: #e2e8f0;
         }
-        .project-info { padding: 1rem; }
-        .project-info h3 { margin-top: 0; }
+
+        .project-info { padding: 1.5rem; }
+        .project-info h3 { margin-bottom: 0.5rem; color: var(--primary); }
+        
+        .tech-stack {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
         .btn {
             display: inline-block;
             background: var(--secondary);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             text-decoration: none;
-            border-radius: 4px;
-            margin-top: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-right: 0.5rem;
         }
-        .btn:hover { background: #2980b9; }
-        ul { padding-left: 20px; }
+
+        .btn:hover { background: var(--secondary-hover); }
+
+        /* Skills Badges */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-badge {
+            background: #e0e7ff;
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
             background: var(--primary);
-            color: white;
+            color: #94a3b8;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .nav-links { display: none; } /* Hide standard nav on mobile for simplicity */
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">M. Karam</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+            </div>
+        </div>
+    </nav>
+
     <header>
         <img src="profile-image.jpg" alt="Mohamed Karam" class="profile-img">
-        <h1>Mohamed Karam [cite: 11]</h1>
-        <p>Software Engineer | Mobile Development [cite: 14, 17]</p>
-        <p>Tanta, Gharbia, Egypt [cite: 12]</p>
+        <h1>Mohamed Karam</h1>
+        <p>Software Engineer | Mobile & Cross-Platform Development</p>
         <div class="social-links">
-            <a href="mailto:mhmdmntf@gmail.com">Email [cite: 12]</a>
-            <a href="https://github.com/mohammed-karam">GitHub [cite: 13]</a>
-            <a href="https://www.linkedin.com/in/mohammed-karam2/">LinkedIn [cite: 12]</a>
-            <a href="https://codeforces.com/profile/Karam">Codeforces [cite: 31]</a>
-            <a href="https://vjudge.net/user/mhmd_krm">VJudge [cite: 31]</a>
+            <a href="mailto:mhmdmntf@gmail.com">Email</a>
+            <a href="https://github.com/mohammed-karam" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/mohammed-karam2/" target="_blank">LinkedIn</a>
+            <a href="https://codeforces.com/profile/Karam" target="_blank">Codeforces</a>
+            <a href="https://vjudge.net/user/mhmd_krm" target="_blank">VJudge</a>
         </div>
     </header>
 
-    <div class="container">
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Engineering student with a strong focus on mobile development. Passionate about building efficient, user-friendly native and cross-platform apps. I continuously enhance my skills in software design, problem-solving, and competitive programming. [cite: 118]</p>
-        </section>
+    <section id="about">
+        <h2>About Me</h2>
+        <p style="font-size: 1.1rem;">Engineering student based in Tanta, Egypt, with a strong focus on mobile development. I am passionate about building efficient, user-friendly native and cross-platform apps. I continuously enhance my skills in software design, problem-solving, and competitive programming.</p>
+    </section>
 
-        <section id="education-experience">
-            <h2>Education & Experience</h2>
-            <h3>Software Engineer - Digital Egypt Pioneers Initiative [cite: 120]</h3>
-            <p><em>Hybrid | June 2024 – November 2024 [cite: 120]</em></p>
+    <section id="experience">
+        <h2>Experience & Education</h2>
+        
+        <div class="card">
+            <h3>Software Engineer</h3>
+            <strong>Digital Egypt Pioneers Initiative</strong>
+            <span class="date">Hybrid | June 2024 – November 2024</span>
             <ul>
-                <li>Developed Android applications using Kotlin, XML, and Jetpack Compose. [cite: 120]</li>
-                <li>Integrated APIs and managed data persistence using SQLite and Room database. [cite: 121]</li>
-                <li>Enhanced UI/UX with responsive layouts, animations, and custom components. [cite: 121]</li>
+                <li>Developed Android applications using Kotlin, XML, and Jetpack Compose.</li>
+                <li>Integrated APIs and managed data persistence using SQLite and Room database.</li>
+                <li>Enhanced UI/UX with responsive layouts, animations, and custom components.</li>
             </ul>
+        </div>
 
-            <h3>University of Tanta [cite: 119]</h3>
-            <p><em>Bachelor of Science in Computer Engineering | Sept 2021 – May 2026 [cite: 119]</em></p>
+        <div class="card">
+            <h3>Bachelor of Science in Computer Engineering</h3>
+            <strong>University of Tanta</strong>
+            <span class="date">Sept 2021 – May 2026</span>
             <ul>
-                <li>Grade: Excellent [cite: 119]</li>
+                <li><strong>Grade:</strong> Excellent</li>
             </ul>
-        </section>
+        </div>
+    </section>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                
-                <div class="project-card">
-                    <img src="tegy-image.jpg" alt="TeGy Project Image" class="project-img">
-                    <div class="project-info">
-                        <h3>TeGy (Graduation Project) [cite: 123]</h3>
-                        <p>A full-featured cross-platform event management application featuring an AI-powered chatbot, AI-driven event search, sentiment analysis, and QR code e-tickets. [cite: 123, 124]</p>
-                        <p><strong>Tools:</strong> Flutter, Dart, AI Integrations, Payment Gateways [cite: 125]</p>
-                        <a href="https://github.com/mohammed-karam/Event-App" class="btn" target="_blank">GitHub [cite: 123]</a>
-                        <a href="https://apkpure.com/tegy/com.example.event_app" class="btn" target="_blank">APKPure [cite: 123]</a>
-                    </div>
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+            
+            <div class="project-card">
+                <img src="tegy-image.jpg" alt="TeGy Project" class="project-img">
+                <div class="project-info">
+                    <h3>TeGy (Graduation Project)</h3>
+                    <div class="tech-stack">Flutter • Dart • AI Integrations</div>
+                    <p>A full-featured cross-platform event management application featuring an AI-powered chatbot, AI-driven event search, sentiment analysis, and QR code e-tickets.</p>
+                    <br>
+                    <a href="https://github.com/mohammed-karam/Event-App" class="btn" target="_blank">GitHub</a>
+                    <a href="https://apkpure.com/tegy/com.example.event_app" class="btn" target="_blank">Live App</a>
                 </div>
-
-                <div class="project-card">
-                    <img src="hospital-image.jpg" alt="Hospital System Image" class="project-img">
-                    <div class="project-info">
-                        <h3>Hospital Management System [cite: 126]</h3>
-                        <p>Web development of a comprehensive hospital management system alongside a collaborative team to streamline medical records. [cite: 126]</p>
-                        <p><strong>Tools:</strong> Web Development Technologies [cite: 127]</p>
-                        <a href="https://github.com/eslam-khalifa/hospital-management-system" class="btn" target="_blank">GitHub [cite: 126]</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <img src="fitness-image.jpg" alt="Fitness Tracker Image" class="project-img">
-                    <div class="project-info">
-                        <h3>Fitness Tracker App [cite: 128]</h3>
-                        <p>Android mobile application offering personalized plans, calorie tracking, and progress analysis to help users improve daily workouts. [cite: 128, 129]</p>
-                        <p><strong>Tools:</strong> Kotlin, Jetpack Compose, Android Studio [cite: 129]</p>
-                        <a href="https://github.com/mohammed-karam/Fitness-Tracker-App" class="btn" target="_blank">GitHub [cite: 128]</a>
-                    </div>
-                </div>
-
             </div>
-        </section>
 
-        <section id="achievements">
-            <h2>Competitions & Certifications</h2>
+            <div class="project-card">
+                <img src="hospital-image.jpg" alt="Hospital System" class="project-img">
+                <div class="project-info">
+                    <h3>Hospital Management System</h3>
+                    <div class="tech-stack">Web Development Technologies</div>
+                    <p>Contributed to the web development of a comprehensive hospital management system alongside a collaborative team to streamline medical records.</p>
+                    <br>
+                    <a href="https://github.com/eslam-khalifa/hospital-management-system" class="btn" target="_blank">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="fitness-image.jpg" alt="Fitness Tracker" class="project-img">
+                <div class="project-info">
+                    <h3>Fitness Tracker App</h3>
+                    <div class="tech-stack">Kotlin • Jetpack Compose</div>
+                    <p>Android mobile application designed to help users organize, track, and improve daily workouts with personalized plans and progress analysis.</p>
+                    <br>
+                    <a href="https://github.com/mohammed-karam/Fitness-Tracker-App" class="btn" target="_blank">GitHub</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2>Competitions & Certifications</h2>
+        <div class="card">
             <ul>
-                <li><strong>ECPC Qualifications:</strong> Achieved 4th place among Tanta University teams and 42nd place overall with team "Debuggers". [cite: 135]</li>
-                <li><strong>NUCPA:</strong> Secured 89th place overall with team "Submit & Pray". [cite: 137]</li>
-                <li><strong>Complete Flutter & Dart Development</strong> - Udemy [cite: 138]</li>
-                <li><strong>Flutter Advanced BLoC and MVVM Pattern</strong> - Tharwat Academy </li>
+                <li><strong>ECPC Qualifications:</strong> Achieved 4th place among Tanta University teams and 42nd place overall with team "Debuggers".</li>
+                <li><strong>NUCPA:</strong> Secured 89th place overall with team "Submit & Pray".</li>
+                <li><strong>Complete Flutter & Dart Development:</strong> Udemy Certification.</li>
+                <li><strong>Flutter Advanced BLoC and MVVM Pattern:</strong> Tharwat Academy Certification.</li>
             </ul>
-        </section>
+        </div>
+    </section>
 
-        <section id="skills">
-            <h2>Technical Skills</h2>
-            <p><strong>Languages:</strong> C++, Kotlin, Dart, HTML/CSS/JavaScript </p>
-            <p><strong>Technologies:</strong> Flutter, BLoC, MVVM, XML, Jetpack Compose, Git, GitHub, Android Studio </p>
-        </section>
-    </div>
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-container">
+            <span class="skill-badge">Flutter</span>
+            <span class="skill-badge">Dart</span>
+            <span class="skill-badge">Kotlin</span>
+            <span class="skill-badge">C++</span>
+            <span class="skill-badge">Jetpack Compose</span>
+            <span class="skill-badge">BLoC</span>
+            <span class="skill-badge">MVVM</span>
+            <span class="skill-badge">XML</span>
+            <span class="skill-badge">HTML/CSS/JS</span>
+            <span class="skill-badge">Git & GitHub</span>
+            <span class="skill-badge">Android Studio</span>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2024 Mohamed Karam. Built with HTML & CSS.</p>
+        <p>&copy; 2024 Mohamed Karam. Built for the modern web.</p>
     </footer>
 
 </body>
