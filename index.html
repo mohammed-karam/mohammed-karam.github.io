@@ -4,390 +4,428 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohamed Karam | Mobile Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Mohamed Karam – Software Engineer specializing in Flutter, Kotlin, and cross-platform mobile development.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f172a; /* Slate 900 */
-            --secondary: #4f46e5; /* Indigo 600 */
-            --secondary-hover: #4338ca;
-            --bg-color: #f8fafc;
-            --surface: #ffffff;
-            --text-main: #334155;
-            --text-light: #64748b;
+            --bg: #07090f;
+            --surface: #0d1117;
+            --surface2: #161b22;
+            --border: rgba(255,255,255,0.08);
+            --accent: #6366f1;
+            --accent2: #818cf8;
+            --grad: linear-gradient(135deg, #6366f1, #a855f7);
+            --text: #e2e8f0;
+            --muted: #8b9db7;
+            --glow: 0 0 40px rgba(99,102,241,0.3);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+        /* ── Noise overlay ── */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.4;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.7;
-        }
-
-        /* Navigation */
+        /* ── NAV ── */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            z-index: 1000;
-            padding: 1rem 0;
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 1.1rem 0;
+            background: rgba(7,9,15,0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
         }
+        .nav-inner { max-width: 1100px; margin: auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 1.1rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+        .nav-links a { color: var(--muted); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; font-weight: 500; transition: color .3s; }
+        .nav-links a:hover { color: var(--text); }
 
-        .nav-container {
-            max-width: 1100px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            margin-left: 1.5rem;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--secondary); }
-
-        /* Hero Section */
+        /* ── HERO ── */
         header {
-            background-color: var(--primary);
-            color: white;
-            padding: 10rem 2rem 6rem;
-            text-align: center;
+            position: relative; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 8rem 2rem 5rem; overflow: hidden;
         }
-
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.18) 0%, transparent 70%),
+                        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(168,85,247,0.12) 0%, transparent 60%);
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .profile-wrap {
+            position: relative; display: inline-block; margin-bottom: 2rem;
+        }
+        .profile-wrap::before {
+            content: '';
+            position: absolute; inset: -4px; border-radius: 50%;
+            background: var(--grad); z-index: -1;
+            animation: spin 6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .profile-img {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--secondary);
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 160px; height: 160px; border-radius: 50%;
+            object-fit: cover; object-position: top;
+            border: 4px solid var(--bg);
+            display: block;
+        }
+        .badge {
+            position: absolute; bottom: 6px; right: 6px;
+            background: #22c55e; width: 20px; height: 20px; border-radius: 50%;
+            border: 3px solid var(--bg);
+        }
+        header h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 0.6rem; }
+        .gradient-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tagline { font-size: 1.15rem; color: var(--muted); max-width: 540px; margin: 0 auto 2rem; }
+        .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .btn-primary {
+            background: var(--grad); color: #fff; padding: .7rem 1.8rem;
+            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .95rem;
+            transition: opacity .3s, transform .2s; box-shadow: var(--glow);
+        }
+        .btn-primary:hover { opacity: .85; transform: translateY(-2px); }
+        .btn-ghost {
+            border: 1px solid var(--border); color: var(--text); padding: .7rem 1.8rem;
+            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .95rem;
+            transition: border-color .3s, transform .2s; backdrop-filter: blur(4px);
+        }
+        .btn-ghost:hover { border-color: var(--accent2); transform: translateY(-2px); }
+        .social-row { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+        .social-chip {
+            background: var(--surface2); border: 1px solid var(--border);
+            color: var(--muted); padding: .4rem 1rem; border-radius: 20px;
+            text-decoration: none; font-size: .85rem; font-weight: 500;
+            transition: all .3s;
+        }
+        .social-chip:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-2px); }
+        .scroll-hint {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            color: var(--muted); font-size: .8rem; display: flex; flex-direction: column; align-items: center; gap: .4rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+        .scroll-hint svg { width: 20px; height: 20px; }
+
+        /* ── SECTIONS ── */
+        section { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+        .section-label { font-size: .8rem; font-weight: 700; letter-spacing: 3px; color: var(--accent2); text-transform: uppercase; margin-bottom: .8rem; }
+        h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: var(--text); margin-bottom: 3rem; letter-spacing: -0.5px; }
+        .divider { width: 60px; height: 3px; background: var(--grad); border-radius: 4px; margin-bottom: 3rem; }
+
+        /* ── ABOUT ── */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .about-text p { color: var(--muted); font-size: 1.05rem; margin-bottom: 1.2rem; line-height: 1.9; }
+        .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2rem; }
+        .stat-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; text-align: center; transition: border-color .3s; }
+        .stat-box:hover { border-color: var(--accent); }
+        .stat-num { font-size: 2rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+        .about-image-wrap { position: relative; }
+        .about-image-wrap img { width: 100%; border-radius: 16px; object-fit: cover; object-position: top center; max-height: 420px; filter: brightness(.9); }
+        .about-image-wrap::after {
+            content: ''; position: absolute; inset: 0; border-radius: 16px;
+            background: linear-gradient(to bottom, transparent 60%, rgba(7,9,15,.8));
         }
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
+        /* ── EXPERIENCE ── */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content:''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border)); border-radius: 2px; }
+        .tl-item { position: relative; margin-bottom: 2.5rem; }
+        .tl-dot { position: absolute; left: -2.45rem; top: .4rem; width: 14px; height: 14px; border-radius: 50%; background: var(--grad); box-shadow: 0 0 10px rgba(99,102,241,.5); }
+        .tl-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; transition: border-color .3s, transform .3s; }
+        .tl-card:hover { border-color: var(--accent); transform: translateX(4px); }
+        .tl-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+        .tl-org { color: var(--accent2); font-weight: 600; font-size: .9rem; margin: .3rem 0; }
+        .tl-date { color: var(--muted); font-size: .82rem; margin-bottom: 1rem; }
+        .tl-card ul { padding-left: 1.2rem; color: var(--muted); }
+        .tl-card li { margin-bottom: .5rem; font-size: .95rem; }
+        .tl-card a { color: var(--accent2); text-decoration: none; font-weight: 600; }
+        .tl-card a:hover { text-decoration: underline; }
 
-        header p {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-        }
+        /* ── PROJECTS ── */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 2rem; }
+        .project-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform .3s, border-color .3s, box-shadow .3s; }
+        .project-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(99,102,241,0.15); }
+        .project-media { width: 100%; height: 220px; object-fit: cover; display: block; background: var(--surface); }
+        video.project-media { object-fit: cover; }
+        .project-info { padding: 1.6rem; }
+        .project-info h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0 1rem; }
+        .tag { background: rgba(99,102,241,0.15); color: var(--accent2); border: 1px solid rgba(99,102,241,0.3); padding: .25rem .7rem; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+        .project-info p { color: var(--muted); font-size: .92rem; margin-bottom: 1.2rem; }
+        .btn-sm { display: inline-block; background: var(--grad); color: #fff; padding: .45rem 1.1rem; border-radius: 6px; font-size: .85rem; font-weight: 600; text-decoration: none; margin-right: .5rem; transition: opacity .3s; }
+        .btn-sm:hover { opacity: .8; }
+        .btn-sm-ghost { display: inline-block; border: 1px solid var(--border); color: var(--muted); padding: .45rem 1.1rem; border-radius: 6px; font-size: .85rem; font-weight: 600; text-decoration: none; transition: border-color .3s, color .3s; }
+        .btn-sm-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+        /* ── SKILLS ── */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .skill-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem; transition: border-color .3s, transform .3s; }
+        .skill-item:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .skill-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(99,102,241,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .skill-name { font-weight: 600; font-size: .95rem; }
 
-        .social-links a {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
+        /* ── ACHIEVEMENTS ── */
+        .ach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .ach-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; transition: border-color .3s; display: flex; gap: 1rem; align-items: flex-start; }
+        .ach-card:hover { border-color: var(--accent); }
+        .ach-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .ach-card h4 { font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: .3rem; }
+        .ach-card p { color: var(--muted); font-size: .88rem; }
 
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
+        /* ── FOOTER ── */
+        footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: .9rem; }
+        footer a { color: var(--accent2); text-decoration: none; }
 
-        /* General Section Styling */
-        section {
-            max-width: 1100px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-        }
-
-        h2::after {
-            content: "";
-            flex: 1;
-            height: 2px;
-            background: #e2e8f0;
-            margin-left: 1rem;
-        }
-
-        /* Timeline / Experience */
-        .card {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .card h3 { color: var(--primary); }
-        .date { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; display: block; }
-        ul { padding-left: 1.2rem; margin-top: 0.5rem; }
-        li { margin-bottom: 0.5rem; }
-
-        /* Projects Grid */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: var(--surface);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #e2e8f0;
-        }
-
-        .project-info { padding: 1.5rem; }
-        .project-info h3 { margin-bottom: 0.5rem; color: var(--primary); }
-        
-        .tech-stack {
-            font-size: 0.85rem;
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--secondary);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: background 0.3s;
-            margin-right: 0.5rem;
-        }
-
-        .btn:hover { background: var(--secondary-hover); }
-
-        /* Skills Badges */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .skill-badge {
-            background: #e0e7ff;
-            color: var(--secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: var(--primary);
-            color: #94a3b8;
-            margin-top: 4rem;
-        }
-
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            .nav-links { display: none; } /* Hide standard nav on mobile for simplicity */
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image-wrap { display: none; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">M. Karam</a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-            </div>
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="logo">M.Karam</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#achievements">Achievements</a>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <header>
-        <img src="profile-image.jpg" alt="Mohamed Karam" class="profile-img">
-        <h1>Mohamed Karam</h1>
-        <p>Software Engineer | Mobile & Cross-Platform Development</p>
-        <div class="social-links">
-            <a href="mailto:mhmdmntf@gmail.com">Email</a>
-            <a href="https://github.com/mohammed-karam" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/mohammed-karam2/" target="_blank">LinkedIn</a>
-            <a href="https://codeforces.com/profile/Karam" target="_blank">Codeforces</a>
-            <a href="https://vjudge.net/user/mhmd_krm" target="_blank">VJudge</a>
+<header>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="profile-wrap">
+            <img src="images/my_image.jpeg" alt="Mohamed Karam" class="profile-img">
+            <div class="badge"></div>
         </div>
-    </header>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <p style="font-size: 1.1rem;">Engineering student based in Tanta, Egypt, with a strong focus on mobile development. I am passionate about building efficient, user-friendly native and cross-platform apps. I continuously enhance my skills in software design, problem-solving, and competitive programming.</p>
-    </section>
-
-    <section id="experience">
-        <h2>Experience & Education</h2>
-
-        <div class="card">
-            <h3>Head Tech</h3>
-            <strong>ICPC Tanta Community</strong>
-            <span class="date">Duration: 1 Year</span>
-            <ul>
-                <li>Led technical operations and structured the competitive programming curriculum for the community.</li>
-                <li>Conducted extensive CP training sessions, including lectures and upsolving streams:
-                    <ul style="margin-top: 0.5rem; list-style-type: circle;">
-                        <li><a href="https://youtu.be/Be-P4wVwOZs?si=ktedcGy0cWRlQ3JW" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Binary Search</a> (Spring 2026)</li>
-                        <li><a href="https://youtu.be/S8kIooBnybs?si=wi9BBCtcsahfUpVB" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Strings</a> (Level 0)</li>
-                        <li><a href="https://youtu.be/Llf9R55Jp0g?si=PzIdNfGAd93FpJ6t" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Math & Factorization</a> (Level 0)</li>
-                        <li><a href="https://youtu.be/JNDIEHlaWrw?si=Fgm8MqBvVdJXc7TY" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Upsolve STLs 2</a> (Winter 2026)</li>
-                        <li><a href="https://youtu.be/DRfFrbeLsRA?si=Z0GKbfirIK-ccVKa" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Upsolve Greedy</a> (Winter 2026)</li>
-                    </ul>
-                </li>
-            </ul>
+        <p class="section-label">Available for opportunities</p>
+        <h1>Mohamed <span class="gradient-text">Karam</span></h1>
+        <p class="tagline">Software Engineer crafting elegant mobile experiences with Flutter, Kotlin &amp; Jetpack Compose.</p>
+        <div class="cta-row">
+            <a href="mailto:mhmdmntf@gmail.com" class="btn-primary">✉ Get in Touch</a>
+            <a href="https://github.com/mohammed-karam" class="btn-ghost" target="_blank">View GitHub →</a>
         </div>
-        
-        <div class="card">
-            <h3>Software Engineer</h3>
-            <strong>Digital Egypt Pioneers Initiative</strong>
-            <span class="date">Hybrid | June 2024 – November 2024</span>
-            <ul>
-                <li>Developed Android applications using Kotlin, XML, and Jetpack Compose.</li>
-                <li>Integrated APIs and managed data persistence using SQLite and Room database.</li>
-                <li>Enhanced UI/UX with responsive layouts, animations, and custom components.</li>
-            </ul>
+        <div class="social-row">
+            <a href="https://www.linkedin.com/in/mohammed-karam2/" class="social-chip" target="_blank">💼 LinkedIn</a>
+            <a href="https://codeforces.com/profile/Karam" class="social-chip" target="_blank">⚡ Codeforces</a>
+            <a href="https://vjudge.net/user/mhmd_krm" class="social-chip" target="_blank">🏆 VJudge</a>
         </div>
+    </div>
+    <div class="scroll-hint">
+        <span>Scroll</span>
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+    </div>
+</header>
 
-        <div class="card">
-            <h3>Bachelor of Science in Computer Engineering</h3>
-            <strong>University of Tanta</strong>
-            <span class="date">Sept 2021 – May 2026</span>
-            <ul>
-                <li><strong>Grade:</strong> Excellent</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>Featured Projects</h2>
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <img src="tegy-image.jpg" alt="TeGy Project" class="project-img">
-                <div class="project-info">
-                    <h3>TeGy (Graduation Project)</h3>
-                    <div class="tech-stack">Flutter • Dart • AI Integrations</div>
-                    <p>A full-featured cross-platform event management application featuring an AI-powered chatbot, AI-driven event search, sentiment analysis, and QR code e-tickets.</p>
-                    <br>
-                    <a href="https://github.com/mohammed-karam/Event-App" class="btn" target="_blank">GitHub</a>
-                    <a href="https://apkpure.com/tegy/com.example.event_app" class="btn" target="_blank">Live App</a>
+<section id="about">
+    <p class="section-label">Who I am</p>
+    <h2>About Me</h2>
+    <div class="divider"></div>
+    <div class="about-grid">
+        <div class="about-text">
+            <p>I'm an Engineering student based in <strong>Tanta, Egypt</strong>, passionate about building efficient, user-friendly native and cross-platform mobile applications.</p>
+            <p>With hands-on experience in Flutter, Kotlin, and Jetpack Compose, I focus on clean architecture, smooth UX, and writing maintainable code. I'm also an active competitive programmer who loves algorithmic problem-solving.</p>
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-num">3+</div>
+                    <div class="stat-label">Projects Shipped</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">1yr</div>
+                    <div class="stat-label">ICPC Tech Lead</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">A</div>
+                    <div class="stat-label">Excellent GPA</div>
                 </div>
             </div>
+        </div>
+        <div class="about-image-wrap">
+            <img src="images/my_image.jpeg" alt="Mohamed Karam">
+        </div>
+    </div>
+</section>
 
-            <div class="project-card">
-                <img src="hospital-image.jpg" alt="Hospital System" class="project-img">
-                <div class="project-info">
-                    <h3>Hospital Management System</h3>
-                    <div class="tech-stack">Web Development Technologies</div>
-                    <p>Contributed to the web development of a comprehensive hospital management system alongside a collaborative team to streamline medical records.</p>
-                    <br>
-                    <a href="https://github.com/eslam-khalifa/hospital-management-system" class="btn" target="_blank">GitHub</a>
-                </div>
+<section id="experience">
+    <p class="section-label">My journey</p>
+    <h2>Experience &amp; Education</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+                <h3>Head of Technology</h3>
+                <div class="tl-org">ICPC Tanta Community</div>
+                <div class="tl-date">Duration: 1 Year</div>
+                <ul>
+                    <li>Led technical operations and structured the competitive programming curriculum.</li>
+                    <li>Conducted training sessions including lectures and upsolving streams:
+                        <ul style="margin-top:.5rem;list-style:circle">
+                            <li><a href="https://youtu.be/Be-P4wVwOZs" target="_blank">Binary Search</a> – Spring 2026</li>
+                            <li><a href="https://youtu.be/S8kIooBnybs" target="_blank">Strings</a> – Level 0</li>
+                            <li><a href="https://youtu.be/Llf9R55Jp0g" target="_blank">Math &amp; Factorization</a> – Level 0</li>
+                            <li><a href="https://youtu.be/JNDIEHlaWrw" target="_blank">Upsolve STLs 2</a> – Winter 2026</li>
+                            <li><a href="https://youtu.be/DRfFrbeLsRA" target="_blank">Upsolve Greedy</a> – Winter 2026</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-
-            <div class="project-card">
-                <img src="fitness-image.jpg" alt="Fitness Tracker" class="project-img">
-                <div class="project-info">
-                    <h3>Fitness Tracker App</h3>
-                    <div class="tech-stack">Kotlin • Jetpack Compose</div>
-                    <p>Android mobile application designed to help users organize, track, and improve daily workouts with personalized plans and progress analysis.</p>
-                    <br>
-                    <a href="https://github.com/mohammed-karam/Fitness-Tracker-App" class="btn" target="_blank">GitHub</a>
-                </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+                <h3>Software Engineer</h3>
+                <div class="tl-org">Digital Egypt Pioneers Initiative</div>
+                <div class="tl-date">Hybrid · June 2024 – November 2024</div>
+                <ul>
+                    <li>Developed Android apps using Kotlin, XML, and Jetpack Compose.</li>
+                    <li>Integrated REST APIs and managed data persistence with SQLite &amp; Room.</li>
+                    <li>Enhanced UI/UX with responsive layouts, animations, and custom components.</li>
+                </ul>
             </div>
-
         </div>
-    </section>
-
-    <section id="achievements">
-        <h2>Competitions & Certifications</h2>
-        <div class="card">
-            <ul>
-                <li><strong>ECPC Qualifications:</strong> Achieved 4th place among Tanta University teams and 42nd place overall with team "Debuggers".</li>
-                <li><strong>NUCPA:</strong> Secured 89th place overall with team "Submit & Pray".</li>
-                <li><strong>Complete Flutter & Dart Development:</strong> Udemy Certification.</li>
-                <li><strong>Flutter Advanced BLoC and MVVM Pattern:</strong> Tharwat Academy Certification.</li>
-            </ul>
+        <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+                <h3>Bachelor of Science in Computer Engineering</h3>
+                <div class="tl-org">University of Tanta</div>
+                <div class="tl-date">Sept 2021 – May 2026</div>
+                <ul>
+                    <li><strong>Grade:</strong> Excellent</li>
+                </ul>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="skills">
-        <h2>Technical Skills</h2>
-        <div class="skills-container">
-            <span class="skill-badge">Flutter</span>
-            <span class="skill-badge">Dart</span>
-            <span class="skill-badge">Kotlin</span>
-            <span class="skill-badge">C++</span>
-            <span class="skill-badge">Jetpack Compose</span>
-            <span class="skill-badge">BLoC</span>
-            <span class="skill-badge">MVVM</span>
-            <span class="skill-badge">XML</span>
-            <span class="skill-badge">HTML/CSS/JS</span>
-            <span class="skill-badge">Git & GitHub</span>
-            <span class="skill-badge">Android Studio</span>
+<section id="projects">
+    <p class="section-label">What I've built</p>
+    <h2>Featured Projects</h2>
+    <div class="divider"></div>
+    <div class="project-grid">
+
+        <div class="project-card">
+            <img src="images/tegy_image.png" alt="TeGy App" class="project-media" style="object-fit:contain; background:#0d1e1e; padding:1rem;">
+            <div class="project-info">
+                <h3>TeGy – Graduation Project</h3>
+                <div class="tech-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Dart</span>
+                    <span class="tag">AI</span>
+                    <span class="tag">BLoC</span>
+                </div>
+                <p>Full-featured cross-platform event management app with AI chatbot, AI-driven search, sentiment analysis, and QR code e-tickets.</p>
+                <a href="https://github.com/mohammed-karam/Event-App" class="btn-sm" target="_blank">GitHub</a>
+                <a href="https://apkpure.com/tegy/com.example.event_app" class="btn-sm-ghost" target="_blank">Live App</a>
+            </div>
         </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2024 Mohamed Karam. Built for the modern web.</p>
-    </footer>
+        <div class="project-card">
+            <video class="project-media" autoplay muted loop playsinline>
+                <source src="videos/hospital_video.mp4" type="video/mp4">
+            </video>
+            <div class="project-info">
+                <h3>Hospital Management System</h3>
+                <div class="tech-tags">
+                    <span class="tag">Web</span>
+                    <span class="tag">HTML/CSS/JS</span>
+                </div>
+                <p>Contributed to the web development of a comprehensive hospital management system to streamline medical records and patient workflows.</p>
+                <a href="https://github.com/eslam-khalifa/hospital-management-system" class="btn-sm" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <video class="project-media" autoplay muted loop playsinline>
+                <source src="videos/fitness_video.mp4" type="video/mp4">
+            </video>
+            <div class="project-info">
+                <h3>Fitness Tracker App</h3>
+                <div class="tech-tags">
+                    <span class="tag">Kotlin</span>
+                    <span class="tag">Jetpack Compose</span>
+                    <span class="tag">Android</span>
+                </div>
+                <p>Android app designed to help users organize, track, and improve daily workouts with personalized plans and progress analytics.</p>
+                <a href="https://github.com/mohammed-karam/Fitness-Tracker-App" class="btn-sm" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="skills">
+    <p class="section-label">My toolkit</p>
+    <h2>Technical Skills</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+        <div class="skill-item"><div class="skill-icon">🦋</div><span class="skill-name">Flutter</span></div>
+        <div class="skill-item"><div class="skill-icon">🎯</div><span class="skill-name">Dart</span></div>
+        <div class="skill-item"><div class="skill-icon">🤖</div><span class="skill-name">Kotlin</span></div>
+        <div class="skill-item"><div class="skill-icon">🏗</div><span class="skill-name">Jetpack Compose</span></div>
+        <div class="skill-item"><div class="skill-icon">🧱</div><span class="skill-name">BLoC / MVVM</span></div>
+        <div class="skill-item"><div class="skill-icon">🔷</div><span class="skill-name">C++</span></div>
+        <div class="skill-item"><div class="skill-icon">🌐</div><span class="skill-name">HTML / CSS / JS</span></div>
+        <div class="skill-item"><div class="skill-icon">🗄</div><span class="skill-name">SQLite / Room</span></div>
+        <div class="skill-item"><div class="skill-icon">📐</div><span class="skill-name">XML Layouts</span></div>
+        <div class="skill-item"><div class="skill-icon">🔀</div><span class="skill-name">Git &amp; GitHub</span></div>
+        <div class="skill-item"><div class="skill-icon">🛠</div><span class="skill-name">Android Studio</span></div>
+    </div>
+</section>
+
+<section id="achievements">
+    <p class="section-label">Milestones</p>
+    <h2>Competitions &amp; Certifications</h2>
+    <div class="divider"></div>
+    <div class="ach-grid">
+        <div class="ach-card">
+            <div class="ach-icon">🏆</div>
+            <div>
+                <h4>ECPC Qualifications</h4>
+                <p>4th place among Tanta University teams &amp; 42nd overall with team <em>"Debuggers"</em>.</p>
+            </div>
+        </div>
+        <div class="ach-card">
+            <div class="ach-icon">🥈</div>
+            <div>
+                <h4>NUCPA</h4>
+                <p>89th place overall with team <em>"Submit &amp; Pray"</em>.</p>
+            </div>
+        </div>
+        <div class="ach-card">
+            <div class="ach-icon">📜</div>
+            <div>
+                <h4>Complete Flutter &amp; Dart Development</h4>
+                <p>Udemy Certification – comprehensive course covering advanced Flutter patterns.</p>
+            </div>
+        </div>
+        <div class="ach-card">
+            <div class="ach-icon">📜</div>
+            <div>
+                <h4>Flutter Advanced BLoC &amp; MVVM</h4>
+                <p>Tharwat Academy Certification – advanced state management &amp; architecture.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Designed &amp; built by <a href="mailto:mhmdmntf@gmail.com">Mohamed Karam</a> · © 2026</p>
+    <p style="margin-top:.5rem; font-size:.8rem; opacity:.6;">Flutter · Kotlin · Competitive Programming</p>
+</footer>
 
 </body>
 </html>
